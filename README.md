@@ -19,7 +19,10 @@ git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
-### 
+### Dataset
+### Evaluation on Validation Set
+### Inference on Mobile data
+### Training
 
 ## Phase 2 : Spectral Classification
 ## Phase 3 : Mobile Application
