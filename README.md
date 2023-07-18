@@ -7,6 +7,9 @@ There are three main components of MobiSpectral
 - Mobile Application
 
 ## Phase 1 : Hyperspectral Reconstruction
+- In this phase, we are training & testing hyperspectral reconstruction model using images captured from Hyperspectral camera.
+- The input to the deep learning model is RGB & NIR images (4 channels), output is Hyperspectral cubes with ```N``` bands.
+  
 ### Prerequisites
 - Linux or macOS
 - Python 3 (Anaconda)
@@ -20,9 +23,40 @@ cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 ### Dataset
-### Evaluation on Validation Set
-### Inference on Mobile data
+- The dataset is categorized into different fruits, download [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) and move it to root folder.
+- Each fruit dataset is named ``dataset_{fruit}``, e.g. ``dataset_kiwi``
+- Directory structure (e.g. fruit = kiwi)
+  ```bash
+   |--mobicom23_mobispectral
+    |--reconstruction
+    |--classification
+    |--application 
+    |--dataset_kiwi
+          |--reconstruction (Ground Truth Hyperspectral data, paired to RGB+NIR)
+          |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
+          |--classification (Reconstructed Hyperspectral from mobile images) 
+  ```
+### Evaluation on Test Set
+- Download the pretrained model [here](https://drive.google.com/file/d/1aK-6jfd79hPelIiXWzLrEb3wdCQ_8te0/view?usp=sharing).
+- Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models```
+```bash
+cd reconstruction/test
+# test on kiwi dataset 
+python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference/  --gpu_id 0
+```
+- Here, the pretrained model produce the inference on RGB+NIR test dataset for each fruit and compute performance metrics comparing to the ground truth Hyperspectral data.
+- Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference/```.
+- Performance metrics are MRAE, RMSE, SAM, SID, SSIM, PSNR (Table 1 in paper).
+- Similarly, repeat the process for other fruits (e.g. apple, blueberries, tomato, strawberries).
+  
 ### Training
+- For training the model from scratch.
+- 
 
 ## Phase 2 : Spectral Classification
+### Inference on Mobile data
+```bash
+python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_organic/  --gpu_id 0
+python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
+```
 ## Phase 3 : Mobile Application
