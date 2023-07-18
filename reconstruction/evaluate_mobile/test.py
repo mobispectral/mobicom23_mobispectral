@@ -8,10 +8,11 @@ import glob
 import cv2
 import numpy as np
 import itertools
-from imageio import imread
+import imageio.v2
+
 parser = argparse.ArgumentParser(description="SSR")
 parser.add_argument('--method', type=str, default='mst_plus_plus')
-parser.add_argument('--pretrained_model_path', type=str, default='./model_zoo/mst_plus_plus.pth')
+parser.add_argument('--pretrained_model_path', type=str, default='./pretrained_models/mst_apple_kiwi_blue_68ch.pth')
 parser.add_argument('--data_root', type=str, default='../dataset/')
 parser.add_argument('--outf', type=str, default='./exp/mst_plus_plus/')
 parser.add_argument('--ensemble_mode', type=str, default='mean')
@@ -27,29 +28,23 @@ def main():
     pretrained_model_path = opt.pretrained_model_path
     method = opt.method
     model = model_generator(method, pretrained_model_path).cuda()
-    test_path = os.path.join(opt.data_root, 'Test_pixel_apple_illu/nonorganic')
-    print(test_path)
+    test_path = os.path.join(opt.data_root)
+    #print(test_path)
     test(model, test_path, opt.outf)
-    #os.system(f'python prep_submission.py -i {opt.outf} -o {opt.outf}/submission')
 
 def test(model, test_path, save_path):
     img_path_name = glob.glob(os.path.join(test_path, '*_RGB_D.png'))
     img_path_name.sort()
     var_name = 'cube'
     for i in range(len(img_path_name)):
-        #bgr = cv2.imread(img_path_name[i])
-        #rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-        rgb = imread(img_path_name[i])
-        print(img_path_name[i])
+        rgb = imageio.v2.imread(img_path_name[i])
         nir_path = img_path_name[i].replace('_RGB_D.png','_NIR.jpg')
-        print(nir_path)
-        nir = imread(nir_path)
+        nir = imageio.v2.imread(nir_path)
         rgb = np.float32(rgb)
         nir = np.float32(nir)
         rgb = (rgb - rgb.min()) / (rgb.max() - rgb.min())
         nir = (nir - nir.min()) / (nir.max() - nir.min())
         nir = nir[:,:,0]
-        print(nir.shape)
         rgb_b = rgb[:,:,0]
         rgb = np.dstack((rgb,rgb_b))
         rgb = np.expand_dims(np.transpose(rgb, [2, 0, 1]), axis=0).copy()
@@ -60,7 +55,6 @@ def test(model, test_path, save_path):
         result = np.transpose(np.squeeze(result), [1, 2, 0])
         result = np.minimum(result, 1.0)
         result = np.maximum(result, 0)
-        print(img_path_name[i].split('/')[-1])
         mat_name = img_path_name[i].split('/')[-1][:-4] + '.mat'
         mat_dir = os.path.join(save_path, mat_name)
         save_matv73(mat_dir, var_name, result)

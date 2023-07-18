@@ -5,7 +5,7 @@ import torch.nn as nn
 import logging
 import numpy as np
 import os
-from fvcore.nn import FlopCountAnalysis
+#from fvcore.nn import FlopCountAnalysis
 
 class AverageMeter(object):
     def __init__(self):
@@ -101,7 +101,7 @@ def my_summary(test_model, H = 64, W = 64, C = 68, N = 1):
     model = test_model.cuda()
     print(model)
     inputs = torch.randn((N, C, H, W)).cuda()
-    flops = FlopCountAnalysis(model,inputs)
+    #flops = FlopCountAnalysis(model,inputs)
     n_param = sum([p.nelement() for p in model.parameters()])
     print(f'GMac:{flops.total()/(1024*1024*1024)}')
     print(f'Params:{n_param}')

@@ -109,8 +109,9 @@ def test_msam(img_pred, img_gt):
         assert len(img_pred_flat) == len(img_gt_flat)
         return np.mean([spectral_angle(img_pred_flat[i]/NORMALIZATION_FACTOR, img_gt_flat[i]/NORMALIZATION_FACTOR) for i in range(len(img_pred_flat))])
 
-def test_sid(img_pred, img_gt+0.0001):
+def test_sid(img_pred, img_gt):
         """ mean spectral information divergence """
+        img_gt = img_gt +0.0001
         img_pred_flat = img_pred.reshape(-1, img_pred.shape[2])
         img_gt_flat = img_gt.reshape(-1, img_gt.shape[2])
         assert len(img_pred_flat) == len(img_gt_flat)

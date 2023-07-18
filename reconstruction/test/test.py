@@ -17,7 +17,7 @@ warnings.warn = warn
 parser = argparse.ArgumentParser(description="Spectral Recovery Toolbox")
 parser.add_argument('--data_root', type=str, default='../dataset/')
 parser.add_argument('--method', type=str, default='mst_plus_plus')
-parser.add_argument('--pretrained_model_path', type=str, default='./model_zoo/mst_apple_wb.pth')
+parser.add_argument('--pretrained_model_path', type=str, default='../pretrained_models/mst_apple_kiwi_blue_68ch.pth')
 parser.add_argument('--outf', type=str, default='./exp/mst_plus_plus/')
 parser.add_argument("--gpu_id", type=str, default='0')
 opt = parser.parse_args()
@@ -69,19 +69,10 @@ def validate(val_loader, model):
                 loss_mrae = criterion_mrae(output[:, :, 128:-128, 128:-128], target[:, :, 128:-128, 128:-128])
                 loss_rmse = criterion_rmse(output[:, :, 128:-128, 128:-128], target[:, :, 128:-128, 128:-128])
                 loss_psnr = criterion_psnr(output[:, :, 128:-128, 128:-128], target[:, :, 128:-128, 128:-128])
-                loss_sam = test_msam(np.transpose(np.squeeze(output.cpu().numpy()*1.0),[1, 2, 0]), np.transpose(np.squeeze(target.cpu().numpy()*1.0),[1, 2, 0]))
-                loss_sam = torch.tensor(loss_sam).cuda() 
-                loss_sid = test_sid(np.transpose(np.squeeze(output.cpu().numpy()*1.0),[1, 2, 0]), np.transpose(np.squeeze(target.cpu().numpy()*1.0),[1, 2, 0]))
-                loss_sid = torch.tensor(loss_sid).cuda()
-                loss_ssim = test_ssim(np.transpose(np.squeeze(output.cpu().numpy()*1.0),[1, 2, 0]), np.transpose(np.squeeze(target.cpu().numpy()*1.0),[1, 2, 0]))
-                loss_ssim = torch.tensor(loss_ssim).cuda()
         # record loss
         losses_mrae.update(loss_mrae.data)
         losses_rmse.update(loss_rmse.data)
         losses_psnr.update(loss_psnr.data)
-        losses_sam.update(loss_sam.data)
-        losses_sid.update(loss_sid.data)
-        losses_ssim.update(loss_ssim.data)
 
         result = output.cpu().numpy() * 1.0
         result = np.transpose(np.squeeze(result), [1, 2, 0])
@@ -90,6 +81,18 @@ def validate(val_loader, model):
         mat_name = hyper_list[i]
         mat_dir = os.path.join(opt.outf, mat_name)
         save_matv73(mat_dir, var_name, result)
+
+        gt = target.cpu().numpy() * 1.0
+        gt = np.transpose(np.squeeze(gt), [1, 2, 0])
+        gt = np.minimum(gt, 1.0)
+        gt = np.maximum(gt, 0)
+        loss_sam = test_msam(result,gt)
+        loss_sid = test_sid(result,gt)
+        loss_ssim = test_ssim(result,gt)
+        losses_sam.update(loss_sam)
+        losses_sid.update(loss_sid)
+        losses_ssim.update(loss_ssim)
+
     return losses_mrae.avg, losses_rmse.avg, losses_psnr.avg, losses_sam.avg, losses_sid.avg, losses_ssim.avg
 
 if __name__ == '__main__':

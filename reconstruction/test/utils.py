@@ -2,7 +2,7 @@ import hdf5storage
 import torch
 import torch.nn as nn
 import numpy as np
-from fvcore.nn import FlopCountAnalysis
+#from fvcore.nn import FlopCountAnalysis
 
 def save_matv73(mat_name, var_name, var):
     hdf5storage.savemat(mat_name, {var_name: var}, format='7.3', store_python_metadata=True)
@@ -31,7 +31,7 @@ class Loss_MRAE(nn.Module):
         assert outputs.shape == label.shape
         label = torch.add(label,0.0001)
         error = torch.abs(outputs - label) / label
-        mrae = torch.mean(error.view(-1))
+        mrae = torch.mean(error.reshape(-1))
         return mrae
 
 class Loss_RMSE(nn.Module):
@@ -42,7 +42,7 @@ class Loss_RMSE(nn.Module):
         assert outputs.shape == label.shape
         error = outputs-label
         sqrt_error = torch.pow(error,2)
-        rmse = torch.sqrt(torch.mean(sqrt_error.view(-1)))
+        rmse = torch.sqrt(torch.mean(sqrt_error.reshape(-1)))
         return rmse
 
 class Loss_SID(nn.Module):
@@ -105,7 +105,7 @@ def my_summary(test_model, H = 512, W = 512, C = 68, N = 1):
     model = test_model.cuda()
     print(model)
     inputs = torch.randn((N, C, H, W)).cuda()
-    flops = FlopCountAnalysis(model,inputs)
+    #flops = FlopCountAnalysis(model,inputs)
     n_param = sum([p.nelement() for p in model.parameters()])
     print(f'GMac:{flops.total()/(1024*1024*1024)}')
     print(f'Params:{n_param}')
