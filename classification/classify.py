@@ -71,7 +71,7 @@ def main():
 
         for k, (train_index, val_index) in enumerate(kf.split(X,y)):
             scaler.fit(X[train_index])
-            pickle.dump(scaler, open(os.path.join("Models", "MLP"+ str(k) + "_scalar.pkl"), "wb"))
+            pickle.dump(scaler, open(os.path.join("Models", "MLP"+ fruit + str(k) + "_scalar.pkl"), "wb"))
             X[train_index] = scaler.transform(X[train_index])
             X[val_index] = scaler.transform(X[val_index])
             print("Fold:",k)
