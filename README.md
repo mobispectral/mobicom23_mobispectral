@@ -82,10 +82,18 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method ms
 python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
 ```
 - The reconstructed data is stored at path  ```dataset_kiwi/classification/```.
-
+- Similarly, repeat the process for other fruits (e.g., tomato)
+```bash
+cd reconstruction/evaluate_mobile
+# reconstruct organic tomato
+python3 test.py --data_root ../../dataset_tomato/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_organic/  --gpu_id 0
+# reconstruct non-organic tomato
+python3 test.py --data_root ../../dataset_tomato/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_nonorganic/  --gpu_id 0
+```
 ### Classification
 ```bash
 cd classification
 python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
+python3 classify.py --data_root ../dataset_tomato/classification/ --fruit tomato
 ```
 ## Phase 3 : Mobile Application
