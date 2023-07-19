@@ -23,7 +23,7 @@ cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 ### Dataset
-- The dataset is categorized into different fruits, download [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) and move it to root folder.
+- The dataset is categorized into different fruits, download [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) and move it to root folder.
 - Each fruit dataset is named ``dataset_{fruit}``, e.g. ``dataset_kiwi``
 - Directory structure (e.g. fruit = kiwi)
   ```bash
@@ -37,7 +37,7 @@ pip install -r requirements.txt
           |--classification (Reconstructed Hyperspectral from mobile images) 
   ```
 ### Evaluation on Test Set
-- Download the pretrained model [here](https://drive.google.com/file/d/1aK-6jfd79hPelIiXWzLrEb3wdCQ_8te0/view?usp=sharing).
+- Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
 ```bash
 cd reconstruction/test
@@ -47,11 +47,11 @@ python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plu
 - Here, the pretrained model produce the inference on RGB+NIR test dataset and compute performance metrics comparing to the ground truth Hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Reported in Table 1).
-- Similarly, repeat the process for other fruits (e.g. apple, blueberries).
+- Similarly, repeat the process for other fruits (e.g. apple[dataset](), blueberries[dataset](), tomato [dataset]()).
 ```bash
 # test on apple dataset 
 python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_apple/  --gpu_id 0
-# test on bluberries dataset 
+# test on blueberries dataset 
 python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
 ```
 ### Transfer Learning 
