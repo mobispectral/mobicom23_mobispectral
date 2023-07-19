@@ -55,6 +55,7 @@ python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_pl
 python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
 ```
 ### Transfer Learning 
+Here, we show the evaluation of tomato dataset with and without transfer learning
 ```bash
 # test on tomato dataset without transfer learning
 python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
@@ -66,7 +67,10 @@ python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method 
 - 
 
 ## Phase 2 : Spectral Classification
+- In this phase, we use the trained model in Phase 1 to reconstruct Hyperspectral from RGB & NIR images captured by mobile (Google Pixel 4).
+
 ### Inference on Mobile data
+- The organic/non-organic mobile data is at path ```dataset_kiwi/mobile_data/```.
 ```bash
 cd reconstruction/evaluate_mobile
 # reconstruct organic kiwi
@@ -74,8 +78,11 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method ms
 # reconstruct non-organic kiwi
 python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
 ```
+- The reconstructed data is stored at path  ```dataset_kiwi/classification/```.
+
 ### Classification
+```bash
 cd classification
 python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
-
+```
 ## Phase 3 : Mobile Application
