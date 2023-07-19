@@ -22,8 +22,15 @@ class DatasetFromDirectory():
         labelslist = ["organic","nonorganic"]
         loaded_mat = np.array((IMAGE_SIZE, IMAGE_SIZE, 51))
 
-        def __init__(self, root, dataset_dir):
+        def __init__(self, root, dataset_dir, fruit):
                 self.root = root
+                if fruit == 'kiwi' or fruit == 'apple':
+                    self.IMAGE_SIZE = 8
+                elif fruit == 'tomato':
+                    self.IMAGE_SIZE = 32
+                elif fruit == 'strawberries' or fruit == 'blueberries':
+                    self.IMAGE_SIZE = 16
+                self.fruit = fruit
 
                 for directory in glob(os.path.join(root, dataset_dir, "*")):
                         for filename in glob(os.path.join(directory, "*.mat")):
@@ -38,16 +45,20 @@ class DatasetFromDirectory():
         def get_signature(self, mat):
             return mat[self.row_itr, self.col_itr,:]
 
-        def get_mat(self, index, var_name):
+        def get_mat(self, index, var_name, fruit):
                 mat = load_mat(index, var_name)
-                # kiwi, apple
-                mat = mat[var_name][208:272:8,288:352:8,:]
-                # tomato
-                #mat = mat[var_name][176:304:4,256:384:4,:]
-                #strawberries
-                #mat = mat[var_name][208:272:4,288:352:4,:]
-                # blueberries
-                #mat = mat[var_name][232:248,312:328,:]
+                if fruit == 'kiwi' or fruit == 'apple':
+                    # kiwi, apple
+                    mat = mat[var_name][208:272:8,288:352:8,:]
+                elif fruit == 'tomato':
+                    # tomato
+                    mat = mat[var_name][176:304:4,256:384:4,:]
+                elif fruit == 'strawberries':
+                    #strawberries
+                    mat = mat[var_name][208:272:4,288:352:4,:]
+                elif fruit == 'blueberries':
+                    # blueberries
+                    mat = mat[var_name][232:248,312:328,:]
                 return mat
 
         def divide_mat(self, mat):
@@ -58,7 +69,7 @@ class DatasetFromDirectory():
 
         def __getitem__(self, index):
                 if self.row_itr == 0 and self.col_itr == 0:
-                        self.loaded_mat = self.get_mat(self.mats[index], self.var_name)
+                        self.loaded_mat = self.get_mat(self.mats[index], self.var_name, self.fruit)
                 signature = self.divide_mat(self.loaded_mat)
                 self.row_itr += self.BLOCK_SIZE
                 if self.row_itr == self.IMAGE_SIZE:

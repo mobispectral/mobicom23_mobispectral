@@ -1,7 +1,7 @@
 import os
 import time
 import pickle
-
+import argparse
 from torch.utils.data import DataLoader
 from dataset import DatasetFromDirectory
 import numpy
@@ -19,6 +19,16 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 from sklearn.model_selection import KFold,StratifiedKFold
 from sklearn.model_selection import cross_validate
 import matplotlib.pyplot as plt
+
+def warn(*args, **kwargs):
+    pass
+import warnings
+warnings.warn = warn
+
+parser = argparse.ArgumentParser(description="Spectral Classification Toolbox")
+parser.add_argument('--data_root', type=str, default='../dataset_kiwi/classification/')
+parser.add_argument('--fruit', type=str, default='kiwi')
+opt = parser.parse_args()
 
 def fit_model(model, X_train, X_test, y_train, y_test, model_name):
         start = time.time()
@@ -39,7 +49,7 @@ def plot_losses(model, filename):
         plt.show()
 
 def main():
-        train_data = DatasetFromDirectory(os.path.join("../dataset_apple/classification/"), "")
+        train_data = DatasetFromDirectory(data_root,"", fruit)
         print("Total Samples:", len(train_data))
         data = DataLoader(dataset=train_data)
 
@@ -56,18 +66,20 @@ def main():
         kf = StratifiedKFold(n_splits=4, random_state = 0, shuffle=True)
 
         scaler = MinMaxScaler()
-        pickle.dump(scaler, open(os.path.join("Models", "MLP_scalar.pkl"), "wb"))
 
         mlp = MLPClassifier(hidden_layer_sizes=(200,150,100), max_iter=300, activation='relu', solver='adam', alpha=0.0001)
 
         for k, (train_index, val_index) in enumerate(kf.split(X,y)):
             scaler.fit(X[train_index])
+            pickle.dump(scaler, open(os.path.join("Models", "MLP"+ str(k) + "_scalar.pkl"), "wb"))
             X[train_index] = scaler.transform(X[train_index])
             X[val_index] = scaler.transform(X[val_index])
             print("Fold:",k)
-            fit_model(mlp, X[train_index], X[val_index], y[train_index], y[val_index], "MLP 3 Hidden Layers, each with 100 neurons, 300 Iterations")
+            fit_model(mlp, X[train_index], X[val_index], y[train_index], y[val_index], "MLP" + fruit + str(k))
             #plot_losses(mlp, "MLP")
 
 
 if __name__ == "__main__":
+        data_root = opt.data_root
+        fruit = opt.fruit
         main()

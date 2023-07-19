@@ -9,7 +9,7 @@ import os
 from hsi_dataset import TrainDataset, ValidDataset
 from architecture import *
 from utils import AverageMeter, initialize_logger, save_checkpoint, record_loss, \
-    time2file_name, Loss_MRAE, Loss_RMSE, Loss_PSNR, poly_lr_scheduler
+    time2file_name, Loss_MRAE, Loss_RMSE, Loss_PSNR
 import datetime
 from torchsummary import summary
 
