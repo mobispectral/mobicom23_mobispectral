@@ -46,7 +46,7 @@ python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plu
 ```
 - Here, the pretrained model produce the inference on RGB+NIR test dataset and compute performance metrics comparing to the ground truth Hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
-- Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Table 1 in paper).
+- Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Reported in Table 1).
 - Similarly, repeat the process for other fruits (e.g. apple, blueberries).
 ```bash
 # test on apple dataset 
@@ -55,16 +55,19 @@ python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_pl
 python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
 ```
 ### Transfer Learning 
-Here, we show the evaluation of tomato dataset with and without transfer learning
+Here, we show the evaluation of tomato dataset with and without transfer learning (Reported in Table 2)
 ```bash
 # test on tomato dataset without transfer learning
 python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
 # test on tomato dataset with transfer learning
-python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
+python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
 ```
 ### Training
 - For training the model from scratch.
-- 
+```bash
+cd reconstruction/train
+python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_kiwi/ --data_root ../../dataset_kiwi/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
+```
 
 ## Phase 2 : Spectral Classification
 - In this phase, we use the trained model in Phase 1 to reconstruct Hyperspectral from RGB & NIR images captured by mobile (Google Pixel 4).
