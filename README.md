@@ -7,6 +7,9 @@ There are three main components of MobiSpectral
 - Mobile Application
 
 ## Phase 1 : Hyperspectral Reconstruction
+- In this phase, we are training & testing hyperspectral reconstruction model using images captured from Hyperspectral camera.
+- The input to the deep learning model is RGB & NIR images (4 channels), output is Hyperspectral cubes with ```N``` bands.
+  
 ### Prerequisites
 - Linux or macOS
 - Python 3 (Anaconda)
@@ -20,9 +23,77 @@ cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 ### Dataset
-### Evaluation on Validation Set
-### Inference on Mobile data
+- The dataset is categorized into different fruits, download [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) and move it to root folder.
+- Each fruit dataset is named ``dataset_{fruit}``, e.g. ``dataset_kiwi``
+- Directory structure (e.g. fruit = kiwi)
+  ```bash
+   |--mobicom23_mobispectral
+    |--reconstruction
+    |--classification
+    |--application 
+    |--dataset_kiwi
+          |--reconstruction (Ground Truth Hyperspectral data, paired to RGB+NIR)
+          |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
+          |--classification (Reconstructed Hyperspectral from mobile images) 
+  ```
+### Evaluation on Test Set
+- Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
+- Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
+```bash
+cd reconstruction/test
+# test on kiwi dataset 
+python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
+```
+- Here, the pretrained model produce the inference on RGB+NIR test dataset and compute performance metrics comparing to the ground truth Hyperspectral data.
+- Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
+- Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Reported in Table 1).
+- Similarly, repeat the process for other fruits (e.g. apple[dataset](), blueberries[dataset](), tomato [dataset]()).
+```bash
+# test on apple dataset 
+python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_apple/  --gpu_id 0
+# test on blueberries dataset 
+python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
+```
+### Transfer Learning 
+Here, we show the evaluation of tomato dataset with and without transfer learning (Reported in Table 2)
+```bash
+# test on tomato dataset without transfer learning
+python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
+# test on tomato dataset with transfer learning
+python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
+```
 ### Training
+- For training the model from scratch.
+```bash
+cd reconstruction/train
+python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_kiwi/ --data_root ../../dataset_kiwi/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
+```
 
 ## Phase 2 : Spectral Classification
+- In this phase, we use the trained model in Phase 1 to reconstruct Hyperspectral from RGB & NIR images captured by mobile (Google Pixel 4).
+
+### Inference on Mobile data
+- The organic/non-organic mobile data is at path ```dataset_kiwi/mobile_data/```.
+```bash
+cd reconstruction/evaluate_mobile
+# reconstruct organic kiwi
+python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_organic/  --gpu_id 0
+# reconstruct non-organic kiwi
+python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
+```
+- The reconstructed data is stored at path  ```dataset_kiwi/classification/```.
+- Similarly, repeat the process for other fruits (e.g., tomato)
+```bash
+cd reconstruction/evaluate_mobile
+# reconstruct organic tomato
+python3 test.py --data_root ../../dataset_tomato/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_organic/  --gpu_id 0
+# reconstruct non-organic tomato
+python3 test.py --data_root ../../dataset_tomato/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_nonorganic/  --gpu_id 0
+```
+### Classification
+```bash
+cd classification
+python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
+python3 classify.py --data_root ../dataset_tomato/classification/ --fruit tomato
+```
 ## Phase 3 : Mobile Application
