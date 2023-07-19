@@ -91,10 +91,14 @@ python3 test.py --data_root ../../dataset_tomato/mobile_data/organic/  --method 
 python3 test.py --data_root ../../dataset_tomato/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_nonorganic/  --gpu_id 0
 ```
 ### Classification
-Here, we will classify the organic vs non-organic fruit using mobile data reconstructed to Hyperspectral
+- Here, we will classify the organic vs non-organic fruit using mobile data reconstructed to Hyperspectral
 ```bash
 cd classification
+# classify organic vs non-organic kiwi
 python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
+# classify organic vs non-organic tomato
 python3 classify.py --data_root ../dataset_tomato/classification/ --fruit tomato
 ```
+- Repeat the process for other fruits.
+
 ## Phase 3 : Mobile Application
