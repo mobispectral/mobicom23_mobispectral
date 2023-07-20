@@ -45,8 +45,7 @@ def test(model, test_path, save_path):
         rgb = (rgb - rgb.min()) / (rgb.max() - rgb.min())
         nir = (nir - nir.min()) / (nir.max() - nir.min())
         nir = nir[:,:,0]
-        rgb_b = rgb[:,:,0]
-        rgb = np.dstack((rgb,rgb_b))
+        rgb = np.dstack((rgb, nir))
         rgb = np.expand_dims(np.transpose(rgb, [2, 0, 1]), axis=0).copy()
         rgb = torch.from_numpy(rgb).float().cuda()
         with torch.no_grad():

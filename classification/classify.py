@@ -6,13 +6,7 @@ from torch.utils.data import DataLoader
 from dataset import DatasetFromDirectory
 import numpy
 import sklearn
-from sklearn.svm import SVC
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.neural_network import MLPClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB, MultinomialNB
-from sklearn.linear_model import LogisticRegression, SGDClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
