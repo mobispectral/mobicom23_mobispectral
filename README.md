@@ -47,7 +47,7 @@ python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plu
 - Here, the pretrained model produce the inference on RGB+NIR test dataset and compute performance metrics comparing to the ground truth Hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Reported in Table 1).
-- Similarly, repeat the process for other fruits (e.g. [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)], [[apple]()]).
+- Similarly, repeat the process for other fruits (e.g. [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)], [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]).
 ```bash
 # test on apple dataset 
 python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_apple/  --gpu_id 0
