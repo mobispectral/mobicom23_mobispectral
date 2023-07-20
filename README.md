@@ -87,7 +87,8 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method
 
 ### Classification
 - Here, we will classify the organic vs non-organic fruit using mobile data (Hyperspectral reconstructed from RGB + NIR)
-- Download the pretrained classifiers [here]().
+- Download the pretrained classifiers [here](https://drive.google.com/file/d/1MapCPrTQaRPANhF5x5Jsxs0pU9gb9YFh/view?usp=sharing).
+- Move the downloaded folder to the path ```mobicom23_mobispectral/classification/pretrained_classifiers/```
 ```bash
 cd classification
 # inference on pretrained model kiwi
