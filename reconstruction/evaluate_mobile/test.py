@@ -12,7 +12,7 @@ import imageio.v2
 
 parser = argparse.ArgumentParser(description="SSR")
 parser.add_argument('--method', type=str, default='mst_plus_plus')
-parser.add_argument('--pretrained_model_path', type=str, default='./pretrained_models/mst_apple_kiwi_blue_68ch.pth')
+parser.add_argument('--pretrained_model_path', type=str, default='../pretrained_models/mst_apple_kiwi_blue_68ch.pth')
 parser.add_argument('--data_root', type=str, default='../dataset/')
 parser.add_argument('--outf', type=str, default='./exp/mst_plus_plus/')
 parser.add_argument('--ensemble_mode', type=str, default='mean')
