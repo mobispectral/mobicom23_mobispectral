@@ -13,6 +13,7 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 from sklearn.model_selection import KFold,StratifiedKFold
 from sklearn.model_selection import cross_validate
 import matplotlib.pyplot as plt
+from sklearn.pipeline import Pipeline
 
 def warn(*args, **kwargs):
     pass
@@ -27,7 +28,6 @@ opt = parser.parse_args()
 def fit_model(model, X_train, X_test, y_train, y_test, model_name):
         start = time.time()
         model.fit(X_train, y_train)
-        pickle.dump(model, open(os.path.join("Models", model_name.split(" ")[0]+"_akb.pkl"), "wb"))
         y_pred = model.predict(X_test)
         print("\n", model_name, ":")
         print(confusion_matrix(y_test, y_pred))
@@ -63,14 +63,13 @@ def main():
 
         mlp = MLPClassifier(hidden_layer_sizes=(200,150,100), max_iter=300, activation='relu', solver='adam', alpha=0.0001)
 
+        pipeline = Pipeline([('scaler', scaler), ('mlp', mlp)])
         for k, (train_index, val_index) in enumerate(kf.split(X,y)):
-            scaler.fit(X[train_index])
-            pickle.dump(scaler, open(os.path.join("Models", "MLP"+ fruit + str(k) + "_scalar.pkl"), "wb"))
-            X[train_index] = scaler.transform(X[train_index])
-            X[val_index] = scaler.transform(X[val_index])
             print("Fold:",k)
-            fit_model(mlp, X[train_index], X[val_index], y[train_index], y[val_index], "MLP" + fruit + str(k))
+            fit_model(pipeline, X[train_index], X[val_index], y[train_index], y[val_index], "MLP" + fruit + str(k))
             #plot_losses(mlp, "MLP")
+            pickle.dump(pipeline, open(os.path.join("Models", "MLP_" + fruit + "_k" + str(k) + ".pkl"), "wb"))
+
 
 
 if __name__ == "__main__":

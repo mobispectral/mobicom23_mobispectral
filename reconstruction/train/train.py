@@ -33,17 +33,17 @@ os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu_id
 
 # load dataset
 print("\nloading dataset ...")
-#train_data1 = TrainDataset(data_root=opt.data_root1, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
-#train_data2 = TrainDataset(data_root=opt.data_root2, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
-#train_data3 = TrainDataset(data_root=opt.data_root3, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
-#train_data = ConcatDataset([train_data1,train_data2,train_data3])
-train_data = TrainDataset(data_root=opt.data_root, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
+train_data1 = TrainDataset(data_root=opt.data_root1, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
+train_data2 = TrainDataset(data_root=opt.data_root2, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
+train_data3 = TrainDataset(data_root=opt.data_root3, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
+train_data = ConcatDataset([train_data1,train_data2,train_data3])
+#train_data = TrainDataset(data_root=opt.data_root, crop_size=opt.patch_size, bgr2rgb=True, arg=True, stride=opt.stride)
 print("Iteration per epoch:", len(train_data))
-#val_data1 = ValidDataset(data_root=opt.data_root1, bgr2rgb=True)
-#val_data2 = ValidDataset(data_root=opt.data_root2, bgr2rgb=True)
-#val_data3 = ValidDataset(data_root=opt.data_root3, bgr2rgb=True)
-#val_data = ConcatDataset([val_data1,val_data2,val_data3])
-val_data = ValidDataset(data_root=opt.data_root, bgr2rgb=True)
+val_data1 = ValidDataset(data_root=opt.data_root1, bgr2rgb=True)
+val_data2 = ValidDataset(data_root=opt.data_root2, bgr2rgb=True)
+val_data3 = ValidDataset(data_root=opt.data_root3, bgr2rgb=True)
+val_data = ConcatDataset([val_data1,val_data2,val_data3])
+#val_data = ValidDataset(data_root=opt.data_root, bgr2rgb=True)
 print("Validation set samples: ", len(val_data))
 
 # iterations
