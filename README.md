@@ -84,23 +84,32 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method ms
 python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
 ```
 - The reconstructed data is stored at path  ```dataset_kiwi/classification/```.
-- Similarly, repeat the process for other fruits (e.g., tomato)
-```bash
-cd reconstruction/evaluate_mobile
-# reconstruct organic tomato
-python3 test.py --data_root ../../dataset_tomato/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_organic/  --gpu_id 0
-# reconstruct non-organic tomato
-python3 test.py --data_root ../../dataset_tomato/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_tomato/classification/working_nonorganic/  --gpu_id 0
-```
+
 ### Classification
-- Here, we will classify the organic vs non-organic fruit using mobile data reconstructed to Hyperspectral
+- Here, we will classify the organic vs non-organic fruit using mobile data (Hyperspectral reconstructed from RGB + NIR)
+- Download the pretrained classifiers [here]().
 ```bash
 cd classification
+# inference on pretrained model kiwi
+python3 evaluate.py --data_root ../dataset_kiwi/classification/ --fruit kiwi --pretrained_classifier ./pretrained_classifiers/MLP_kiwi.pkl
+
 # classify organic vs non-organic kiwi
 python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
-# classify organic vs non-organic tomato
-python3 classify.py --data_root ../dataset_tomato/classification/ --fruit tomato
 ```
-- Repeat the process for other fruits.
 
+- Similarly, repeat the process for other fruits (e.g., apple)
+```bash
+cd reconstruction/evaluate_mobile
+# reconstruct organic apple
+python3 test.py --data_root ../../dataset_apple/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_apple/classification/working_organic/  --gpu_id 0
+# reconstruct non-organic apple
+python3 test.py --data_root ../../dataset_apple/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_apple/classification/working_nonorganic/  --gpu_id 0
+```
+```bash
+cd classification
+# inference
+python3 evaluate.py --data_root ../dataset_apple/classification/ --fruit apple --pretrained_classifier ./pretrained_classifiers/MLP_apple.pkl
+# classify organic vs non-organic apple
+python3 classify.py --data_root ../dataset_apple/classification/ --fruit apple
+```
 ## Phase 3 : Mobile Application
