@@ -65,9 +65,10 @@ python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_p
 - Repeat the process for [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)]
 ### Training
 - For training the model from scratch.
+- We train our model on three fruits (apple, kiwi, blueberries).
 ```bash
 cd reconstruction/train
-python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_kiwi/ --data_root ../../dataset_kiwi/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
+python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../dataset_apple/reconstruction/ --data_root2 ../../dataset_kiwi/reconstruction/ --data_root3 ../../dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
 ```
 
 ## Phase 2 : Spectral Classification
