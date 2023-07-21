@@ -1,6 +1,8 @@
 # MobiSpectral: Hyperspectral Imaging on Mobile Devices
 
-This repository describes the detailed steps to reproduce the research results presented in the paper titled:``MobiSpectral: Hyperspectral Imaging on Mobile Devices``.  
+This repository describes the detailed steps to reproduce the research results presented in the paper titled: 
+
+``MobiSpectral: Hyperspectral Imaging on Mobile Devices``.  
 
 There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
@@ -24,9 +26,8 @@ cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 ### Download Datasets
-- The dataset is categorized into different fruits, download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
-- Each fruit dataset is named ``dataset_{fruit}``, e.g. ``dataset_kiwi``
-- Directory structure (e.g., fruit = kiwi)
+- The dataset is categorized into different fruits; each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
+- The directory structure looks like the following (for Kiwi): 
   ```bash
    |--mobicom23_mobispectral
     |--reconstruction
@@ -37,6 +38,9 @@ pip install -r requirements.txt
           |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
           |--classification (Reconstructed Hyperspectral from mobile images) 
   ```
+
+- Download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
+
 ### Evaluation on Test Set (using the pre-trained model)
 - Download the pre-trained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
@@ -67,7 +71,7 @@ python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_p
 
 ### Training the model from scratch
 - This may take several hours, depending on the GPU.
-- - We train our model on three fruits (apples, kiwis, and blueberries).
+- We train our model on three fruits (apples, kiwis, and blueberries).
 ```bash
 cd reconstruction/train
 python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../dataset_apple/reconstruction/ --data_root2 ../../dataset_kiwi/reconstruction/ --data_root3 ../../dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
