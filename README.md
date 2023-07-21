@@ -1,7 +1,6 @@
 # MobiSpectral: Hyperspectral Imaging on Mobile Devices
 
 This repository describes the detailed steps to reproduce the research results presented in the paper titled: 
-
 ``MobiSpectral: Hyperspectral Imaging on Mobile Devices``.  
 
 There are three main components of MobiSpectral to evaluate: 
