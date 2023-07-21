@@ -26,7 +26,7 @@ class DatasetFromDirectory():
         def __init__(self, root, dataset_dir, fruit):
                 self.root = root
                 if fruit == 'kiwi':
-                    self.test_data = 9
+                    self.test_data = 1
                     self.IMAGE_SIZE = 8
                 elif fruit == 'apple':
                     self.test_data = 10
