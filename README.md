@@ -10,7 +10,7 @@ There are three main components of MobiSpectral to evaluate:
 
 ## Hyperspectral Reconstruction
 - MobiSpectral has a hyperspectral reconstruction model that was trained on images captured by a hyperspectral camera.
-- You can [reproduce our results using the pre-trained model](### Reproduce the Reconstruction Results using the Pre-trained Model). Alternatively, you can start by training the model from scratch, but this may take several hours and require downloading multiple extra gigabytes of training data.
+- You can [reproduce our results using the pre-trained model](### Reproduce the Reconstruction Results using the Pre-trained Model). Alternatively, you can start by [training the model from scratch], but this may take several hours and require downloading multiple extra gigabytes of training data.
   
 ### Prerequisites
 - Workstation running Linux or MacOS
@@ -40,7 +40,7 @@ The datasets and pretrained_models folders are initially empty.
 
 ### Download datasets
 - The datasets are categorized into different fruits; each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
-- The directory structure looks like the following: 
+- The directory structure of the datasets looks like: 
   ```bash
    |--datasets
       |--dataset_kiwi
@@ -80,7 +80,7 @@ python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_pl
 # test on blueberries dataset 
 python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
 ```
-### Transfer Learning 
+### Transfer learning 
 Here, we show the evaluation of [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] with and without transfer learning (Reported in Table 2). 
 ```bash
 # test on tomato dataset without transfer learning
@@ -90,7 +90,7 @@ python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_p
 ```
 - Repeat the process for [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)]
 
-### Training the model from scratch
+### Training the reconstruction model from scratch
 - This may take several hours, depending on the GPU.
 - TO train the model on three fruits (apples, kiwis, and blueberries):
 ```bash
@@ -113,7 +113,7 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method
 ```
 - The reconstructed data is stored at ```dataset_kiwi/classification/```.
 
-### Organic Classification
+### Organic classification
 - We classify the organic and non-organic fruits using the reconstructed bands from the RGB + NIR images captured by the phone.
 - Download the pretrained classifiers [here](https://drive.google.com/file/d/1MapCPrTQaRPANhF5x5Jsxs0pU9gb9YFh/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/classification/pretrained_classifiers/```
