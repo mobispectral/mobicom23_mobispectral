@@ -12,7 +12,7 @@ There are three main components of MobiSpectral
   
 ### Prerequisites
 - Linux or macOS
-- Python 3 (Anaconda)
+- Python <= 3.8 (Anaconda)
 - NVIDIA GPU + CUDA CuDNN
 
 ### Installation
