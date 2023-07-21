@@ -7,4 +7,5 @@ hdf5storage
 tqdm
 imageio
 scikit-image
+scikit-learn
 
