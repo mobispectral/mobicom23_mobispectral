@@ -1,31 +1,32 @@
 # MobiSpectral: Hyperspectral Imaging on Mobile Devices
-Hyperspectral imaging systems capture information in multiple wavelength bands across the electromagnetic spectrum. These bands provide substantial details based on the optical properties of the materials present in the captured scene. The high cost of hyperspectral cameras and their strict illumination requirements make the technology out of reach for end-user and small-scale commercial applications. We propose MobiSpectral which turns a low-cost phone into a simple hyperspectral imaging system, without any changes in the hardware. We design deep learning models that take regular RGB images and near-infrared (NIR) signals (which are used for face identification on recent phones) and reconstruct multiple hyperspectral bands in the visible and NIR ranges of the spectrum. Our experimental results show that MobiSpectral produces accurate bands that are comparable to ones captured by actual hyperspectral cameras. The availability of hyperspectral bands that reveal hidden information enables the development of novel mobile applications that are not currently possible. To demonstrate the potential of MobiSpectral, we use it to identify organic solid foods, which is a challenging food fraud problem that is currently partially solved by laborious, unscalable, and expensive processes. We collect large datasets in real environments under diverse illumination conditions to evaluate MobiSpectral. Our results show that MobiSpectral can identify organic foods, e.g., apples, tomatoes, kiwis, strawberries, and blueberries, with an accuracy of up to 94% from images taken by phones.
 
-There are three main components of MobiSpectral
+This repository describes the detailed steps to reproduce the research results presented in the paper titled:``MobiSpectral: Hyperspectral Imaging on Mobile Devices``.  
+
+There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
-- Spectral Classification
+- Identification of Organic Fruits 
 - Mobile Application
 
-## Phase 1 : Hyperspectral Reconstruction
-- In this phase, we are training & testing hyperspectral reconstruction model using images captured from Hyperspectral camera.
-- The input to the deep learning model is RGB & NIR images (4 channels), output is Hyperspectral cubes with ```N``` bands.
+## Hyperspectral Reconstruction
+- MobiSpectral has a hyperspectral reconstruction model that was trained on images captured by a hyperspectral camera.
+- You can reproduce our results using the pre-trained model. Alternatively, you can start by training the model from scratch, but this may take several hours.
   
 ### Prerequisites
-- Linux or macOS
-- Python <= 3.8 (Anaconda)
+- Workstation running Linux or MacOS
 - NVIDIA GPU + CUDA CuDNN
+- Python <= 3.8 (Anaconda)
 
-### Installation
+### Instal the code 
 - Clone this repo & install dependencies:
 ```bash
 git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
-### Dataset
+### Download Datasets
 - The dataset is categorized into different fruits, download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
 - Each fruit dataset is named ``dataset_{fruit}``, e.g. ``dataset_kiwi``
-- Directory structure (e.g. fruit = kiwi)
+- Directory structure (e.g., fruit = kiwi)
   ```bash
    |--mobicom23_mobispectral
     |--reconstruction
@@ -36,17 +37,17 @@ pip install -r requirements.txt
           |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
           |--classification (Reconstructed Hyperspectral from mobile images) 
   ```
-### Evaluation on Test Set
-- Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
+### Evaluation on Test Set (using the pre-trained model)
+- Download the pre-trained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
 ```bash
 cd reconstruction/test
 # test on kiwi dataset 
 python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
 ```
-- Here, the pretrained model produce the inference on RGB+NIR test dataset and compute performance metrics comparing to the ground truth Hyperspectral data.
+- Here, the pre-trained model produces the inference on the RGB+NIR test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
-- Performance metrics are printed MRAE, RMSE, SAM, SID, SSIM, PSNR (Reported in Table 1).
+- The following performance metrics are printed: MRAE, RMSE, SAM, SID, SSIM, and PSNR (These are the ones reported in Table 1 in the paper). 
 - Similarly, repeat the process for other fruits (e.g. [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)], [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]).
 ```bash
 # test on apple dataset 
@@ -55,7 +56,7 @@ python3 test.py --data_root ../../dataset_apple/reconstruction/  --method mst_pl
 python3 test.py --data_root ../../dataset_blueberries/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_blueberries/  --gpu_id 0
 ```
 ### Transfer Learning 
-Here, we show the evaluation of [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] with and without transfer learning (Reported in Table 2)
+Here, we show the evaluation of [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] with and without transfer learning (Reported in Table 2). 
 ```bash
 # test on tomato dataset without transfer learning
 python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
@@ -63,9 +64,10 @@ python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_p
 python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
 ```
 - Repeat the process for [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)]
-### Training
-- For training the model from scratch.
-- We train our model on three fruits (apple, kiwi, blueberries).
+
+### Training the model from scratch
+- This may take several hours, depending on the GPU.
+- - We train our model on three fruits (apples, kiwis, and blueberries).
 ```bash
 cd reconstruction/train
 python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../dataset_apple/reconstruction/ --data_root2 ../../dataset_kiwi/reconstruction/ --data_root3 ../../dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
