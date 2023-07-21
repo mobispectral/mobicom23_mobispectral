@@ -117,7 +117,7 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method
 - We classify the organic and non-organic fruits using the reconstructed bands from the RGB + NIR images captured by the phone.
 - Download the pretrained classifiers [here](https://drive.google.com/file/d/1MapCPrTQaRPANhF5x5Jsxs0pU9gb9YFh/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/classification/pretrained_classifiers/```
-```bash
+```bash 
 cd classification
 # inference on pretrained model kiwi
 python3 evaluate.py --data_root ../dataset_kiwi/classification/ --fruit kiwi --pretrained_classifier ./pretrained_classifiers/MLP_kiwi.pkl
