@@ -52,13 +52,16 @@ The datasets and pretrained_models folders are initially empty.
       ... 
   ```
 
-- Download datasets for ALL fruits here (XX GB). XXX I suggest one large zipfile. And describe to unzipped in the correct folder and sub-folders (as above). 
+* Download [datasets for ALL fruits here] (XX GB). XXX I suggest one large zipfile. And unzipp to the correct folder and sub-folders (as above). Remove hyperlinks to datasets from later sections. 
 
-- Or, you can download the dataset for individual fruits: 
-  -- [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (XX GB)
-  -- [Apple]
-  XXXX 
-
+* Or, you can download the dataset for individual fruits: 
+  ** [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (XX GB)
+  ** [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)] (XX GB)
+  ** [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]) (XX GB)
+  ** [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] (XX GB)
+  ** [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)] (XX GB)
+   
+ 
 ### Reproduce the Reconstruction Results using the Pre-trained Model
 - Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing) (about 250 MB).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
