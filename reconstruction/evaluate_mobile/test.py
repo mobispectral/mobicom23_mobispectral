@@ -8,7 +8,7 @@ import glob
 import cv2
 import numpy as np
 import itertools
-import imageio.v2
+import imageio
 
 parser = argparse.ArgumentParser(description="SSR")
 parser.add_argument('--method', type=str, default='mst_plus_plus')
@@ -37,9 +37,9 @@ def test(model, test_path, save_path):
     img_path_name.sort()
     var_name = 'cube'
     for i in range(len(img_path_name)):
-        rgb = imageio.v2.imread(img_path_name[i])
+        rgb = imageio.imread(img_path_name[i])
         nir_path = img_path_name[i].replace('_RGB_D.png','_NIR.jpg')
-        nir = imageio.v2.imread(nir_path)
+        nir = imageio.imread(nir_path)
         rgb = np.float32(rgb)
         nir = np.float32(nir)
         rgb = (rgb - rgb.min()) / (rgb.max() - rgb.min())
