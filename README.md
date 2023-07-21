@@ -5,12 +5,12 @@ This repository describes the detailed steps to reproduce the research results p
 
 There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
-- Identification of Organic Fruits 
+- Classification of Organic Fruits 
 - Mobile Application
 
 ## Hyperspectral Reconstruction
 - MobiSpectral has a hyperspectral reconstruction model that was trained on images captured by a hyperspectral camera.
-- You can reproduce our results using the pre-trained model. Alternatively, you can start by training the model from scratch, but this may take several hours.
+- You can [reproduce our results using the pre-trained model](### Reproduce the Reconstruction Results using the Pre-trained Model). Alternatively, you can start by training the model from scratch, but this may take several hours and require downloading multiple extra gigabytes of training data.
   
 ### Prerequisites
 - Workstation running Linux or MacOS
@@ -24,31 +24,44 @@ git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
-### Download Datasets
-- The dataset is categorized into different fruits; each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
-- The directory structure looks like the following (for Kiwi): 
-  ```bash
+
+XXX Mohamed: structure the directory as follows: 
+
+```bash
    |--mobicom23_mobispectral
-    |--reconstruction
-    |--classification
-    |--application 
-    |--dataset_kiwi
+      |--reconstruction
+      |--classification
+      |--application 
+      |--datasets
+      |--pretrained_models
+  
+```
+The datasets and pretrained_models folders are initially empty. 
+
+### Download datasets
+- The datasets are categorized into different fruits; each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
+- The directory structure looks like the following: 
+  ```bash
+   |--datasets
+      |--dataset_kiwi
           |--reconstruction (Ground Truth Hyperspectral data, paired to RGB+NIR)
           |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
-          |--classification (Reconstructed Hyperspectral from mobile images) 
+          |--classification (Reconstructed Hyperspectral from mobile images)
+       |--dataset_apple
+          |--...
   ```
 
-- Download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
+- XXX Download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
 
-### Evaluation on Test Set (using the pre-trained model)
-- Download the pre-trained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing).
+### Reproduce the Reconstruction Results using the Pre-trained Model
+- Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing) (about 250 MB).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/reconstruction/pretrained_models/```
 ```bash
 cd reconstruction/test
 # test on kiwi dataset 
 python3 test.py --data_root ../../dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
 ```
-- Here, the pre-trained model produces the inference on the RGB+NIR test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
+- Here, the pretrained model produces the inference on the RGB+NIR test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - The following performance metrics are printed: MRAE, RMSE, SAM, SID, SSIM, and PSNR (These are the ones reported in Table 1 in the paper). 
 - Similarly, repeat the process for other fruits (e.g. [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)], [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]).
@@ -76,7 +89,7 @@ cd reconstruction/train
 python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../dataset_apple/reconstruction/ --data_root2 ../../dataset_kiwi/reconstruction/ --data_root3 ../../dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
 ```
 
-## Phase 2 : Spectral Classification
+## Spectral Classification
 - In this phase, we use the trained model in Phase 1 to reconstruct Hyperspectral from RGB & NIR images captured by mobile (Google Pixel 4).
 
 ### Inference on Mobile data
