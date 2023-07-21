@@ -25,7 +25,7 @@ cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 
-XXX Mohamed: structure the directory as follows: 
+The structure of the directory looks as follows:  XXXX Mohamed: check and update 
 
 ```bash
    |--mobicom23_mobispectral
@@ -49,9 +49,15 @@ The datasets and pretrained_models folders are initially empty.
           |--classification (Reconstructed Hyperspectral from mobile images)
        |--dataset_apple
           |--...
+      ... 
   ```
 
-- XXX Download [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] and move it to root folder.
+- Download datasets for ALL fruits here (XX GB). XXX I suggest one large zipfile. And describe to unzipped in the correct folder and sub-folders (as above). 
+
+- Or, you can download the dataset for individual fruits: 
+  -- [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (XX GB)
+  -- [Apple]
+  XXXX 
 
 ### Reproduce the Reconstruction Results using the Pre-trained Model
 - Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing) (about 250 MB).
@@ -83,17 +89,18 @@ python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_p
 
 ### Training the model from scratch
 - This may take several hours, depending on the GPU.
-- We train our model on three fruits (apples, kiwis, and blueberries).
+- TO train the model on three fruits (apples, kiwis, and blueberries):
 ```bash
 cd reconstruction/train
 python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../dataset_apple/reconstruction/ --data_root2 ../../dataset_kiwi/reconstruction/ --data_root3 ../../dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
 ```
 
-## Spectral Classification
-- In this phase, we use the trained model in Phase 1 to reconstruct Hyperspectral from RGB & NIR images captured by mobile (Google Pixel 4).
+## Identification of Organic Fruits
+- We use the trained reconstruction model to reconstruct hyperspectral bands from RGB & NIR images captured by a mobile phone (Google Pixel 4).
+- Then, we feed the reconstructed hyperspectral bands to a classifier to distinguish organic fruits from non-organic ones. 
 
-### Inference on Mobile data
-- The organic/non-organic mobile data is at path ```dataset_kiwi/mobile_data/```.
+### Hyperspectral reconstruction of the mobile image dataset 
+- The organic/non-organic mobile data is at ```dataset_kiwi/mobile_data/```.
 ```bash
 cd reconstruction/evaluate_mobile
 # reconstruct organic kiwi
@@ -101,10 +108,10 @@ python3 test.py --data_root ../../dataset_kiwi/mobile_data/organic/  --method ms
 # reconstruct non-organic kiwi
 python3 test.py --data_root ../../dataset_kiwi/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_kiwi/classification/working_nonorganic/  --gpu_id 0
 ```
-- The reconstructed data is stored at path  ```dataset_kiwi/classification/```.
+- The reconstructed data is stored at ```dataset_kiwi/classification/```.
 
-### Classification
-- Here, we will classify the organic vs non-organic fruit using mobile data (Hyperspectral reconstructed from RGB + NIR)
+### Organic Classification
+- We classify the organic and non-organic fruits using the reconstructed bands from the RGB + NIR images captured by the phone.
 - Download the pretrained classifiers [here](https://drive.google.com/file/d/1MapCPrTQaRPANhF5x5Jsxs0pU9gb9YFh/view?usp=sharing).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/classification/pretrained_classifiers/```
 ```bash
@@ -131,4 +138,5 @@ python3 evaluate.py --data_root ../dataset_apple/classification/ --fruit apple -
 # classify organic vs non-organic apple
 python3 classify.py --data_root ../dataset_apple/classification/ --fruit apple
 ```
-## Phase 3 : Mobile Application
+
+## Mobile Application
