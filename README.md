@@ -5,7 +5,7 @@ This repository describes the detailed steps to reproduce the research results p
 
 There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
-- Classification of Organic Fruits 
+- Identification of Organic Fruits 
 - Mobile Application
 
 ## Hyperspectral Reconstruction
