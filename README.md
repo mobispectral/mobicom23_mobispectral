@@ -68,7 +68,7 @@ The datasets and pretrained_models folders are initially empty.
    
  
 ### Reproduce the Reconstruction Results using the Pre-trained Model
-- Download the pretrained model [here](https://drive.google.com/file/d/17RGFLNClfeqXwU-uVHdVnYEivxbQ6HrT/view?usp=sharing) (about 250 MB).
+- Download the pretrained model [here](https://drive.google.com/file/d/1p7pvbfM0Vi0HK9MdQHoW3LNCkpS_Jyfi/view?usp=sharing) (about 250 MB).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/pretrained_models/```
 ```bash
 cd reconstruction/test
