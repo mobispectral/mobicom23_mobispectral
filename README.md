@@ -52,7 +52,7 @@ The datasets and pretrained_models folders are initially empty.
       ... 
   ```
 
-* Download [datasets for ALL fruits here] (27 GB). And unzipp to the correct folder and sub-folders (as above). Remove hyperlinks to datasets from later sections. 
+* Download [datasets for ALL fruits here] (27 GB). And unzipp to the correct folder and sub-folders (as above). Please note that additional 20 GB space will be needed to reproduce the results of all fruits. 
 
 * Or, you can download the dataset for individual fruits:
   
@@ -89,9 +89,9 @@ python3 test.py --data_root ../../datasets/dataset_blueberries/reconstruction/  
 Here, we show the evaluation of ``dataset_tomato`` with and without transfer learning (Reported in Table 2). 
 ```bash
 # test on tomato dataset without transfer learning
-python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
+python3 test.py --data_root ../../datasets/dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
 # test on tomato dataset with transfer learning
-python3 test.py --data_root ../../dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
+python3 test.py --data_root ../../datasets/dataset_tomato/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_tomato_transfer_68ch.pth --outf ./exp/hs_inference_tomato/  --gpu_id 0
 ```
 - Repeat the process for ``dataset_strawberries``
 
@@ -120,31 +120,30 @@ python3 test.py --data_root ../../datasets/dataset_kiwi/mobile_data/nonorganic/ 
 
 ### Organic classification
 - We classify the organic and non-organic fruits using the reconstructed bands from the RGB + NIR images captured by the phone.
-- Download the pretrained classifiers [here](https://drive.google.com/file/d/1MapCPrTQaRPANhF5x5Jsxs0pU9gb9YFh/view?usp=sharing).
-- Move the downloaded folder to the path ```mobicom23_mobispectral/classification/pretrained_classifiers/```
+
 ```bash 
 cd classification
 # inference on pretrained model kiwi
-python3 evaluate.py --data_root ../dataset_kiwi/classification/ --fruit kiwi --pretrained_classifier ./pretrained_classifiers/MLP_kiwi.pkl
+python3 evaluate.py --data_root ../datasets/dataset_kiwi/classification/ --fruit kiwi --pretrained_classifier ../pretrained_models/MLP_kiwi.pkl
 
 # classify organic vs non-organic kiwi
-python3 classify.py --data_root ../dataset_kiwi/classification/ --fruit kiwi
+python3 classify.py --data_root ../datasets/dataset_kiwi/classification/ --fruit kiwi
 ```
 
 - Similarly, repeat the process for other fruits (e.g., apple)
 ```bash
 cd reconstruction/evaluate_mobile
 # reconstruct organic apple
-python3 test.py --data_root ../../dataset_apple/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_apple/classification/working_organic/  --gpu_id 0
+python3 test.py --data_root ../../datasets/dataset_apple/mobile_data/organic/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../datasets/dataset_apple/classification/working_organic/  --gpu_id 0
 # reconstruct non-organic apple
-python3 test.py --data_root ../../dataset_apple/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../dataset_apple/classification/working_nonorganic/  --gpu_id 0
+python3 test.py --data_root ../../datasets/dataset_apple/mobile_data/nonorganic/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ../../datasets/dataset_apple/classification/working_nonorganic/  --gpu_id 0
 ```
 ```bash
 cd classification
 # inference
-python3 evaluate.py --data_root ../dataset_apple/classification/ --fruit apple --pretrained_classifier ./pretrained_classifiers/MLP_apple.pkl
+python3 evaluate.py --data_root ../datasets/dataset_apple/classification/ --fruit apple --pretrained_classifier ../pretrained_models/MLP_apple.pkl
 # classify organic vs non-organic apple
-python3 classify.py --data_root ../dataset_apple/classification/ --fruit apple
+python3 classify.py --data_root ../datasets/dataset_apple/classification/ --fruit apple
 ```
 
 ## Mobile Application
