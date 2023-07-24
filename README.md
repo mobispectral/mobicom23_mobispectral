@@ -33,16 +33,16 @@ The above instructions should work for most environments. However, for some CUDA
 
 3. Clone repo & create anaconda env
   ```bash
-  - git clone https://github.com/mobispectral/mobicom23_mobispectral.git
-  - cd mobicom23_mobispectral
-  - conda create --name MobiSpec python=3.8
-  - conda activate MobiSpec
+   git clone https://github.com/mobispectral/mobicom23_mobispectral.git
+   cd mobicom23_mobispectral
+   conda create --name MobiSpec python=3.8
+   conda activate MobiSpec
 ```
 
 4. Install pytorch & dependencies
   ```bash
-  - pip install torch==1.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
-  - pip install -r requirements.txt
+   pip install torch==1.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+   pip install -r requirements.txt
  ```
 
 
