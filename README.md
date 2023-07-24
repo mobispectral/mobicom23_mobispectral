@@ -31,7 +31,7 @@ The above instructions should work for most environments. However, for some CUDA
 2. Install miniconda:
 ```bash
      bash Miniconda3-py38_23.5.2-0-Linux-x86_64.sh
-     ```
+```
 
 3. Clone repo & create anaconda env
   ```bash
