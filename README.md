@@ -15,17 +15,17 @@ There are three main components of MobiSpectral to evaluate:
 ### Prerequisites
 - Workstation running Linux
 - NVIDIA GPU + CUDA CuDNN
-- Python 3.8 or earlier ones
+- Python 3.8 or earlier version 
 
 ### Install the code 
-- Clone this repo & create Anaconda environment and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
+- Clone the following repo. Create Anaconda environment and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
 ```bash
 git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
 
-The structure of the directory looks as follows:
+The structure of the directory should look like:
 
 ```bash
    |--mobicom23_mobispectral
@@ -39,7 +39,7 @@ The structure of the directory looks as follows:
 The datasets and pretrained_models folders are initially empty. 
 
 ### Download datasets
-- The datasets are categorized into different fruits; each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
+- The Hyperspectral Images dataset used in the paper has images of five sub datasets for different fruits: apple, kiwi,tomato, blueberries, and strawberries. Each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
 - The directory structure of the datasets looks like: 
   ```bash
    |--datasets
@@ -52,20 +52,22 @@ The datasets and pretrained_models folders are initially empty.
       ... 
   ```
 
-* Download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing)] (27 GB). And unzipp to the correct folder and sub-folders (as above). Please note that additional 20 GB space will be needed to reproduce the results of all fruits. 
+- To evalaute the reconstruction mode, you will need to download one or more of the following five datasets:
 
-* Or, you can download the dataset for individual fruits:
-  
-  ** [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (2.6 GB)
+      - [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (2.6 GB)
 
-  ** [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)] (1.9 GB)
+      - [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)] (1.9 GB)
 
-  ** [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]) (19 GB)
+      - [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]) (19 GB)
 
-  ** [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] (1.7 GB)
+      - [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] (1.7 GB)
 
-  ** [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)] (2.0 GB)
+      - [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)] (2.0 GB)
+
+- Unzip the downloaded dataset(s) and move it (them) to the correct folder(s) according to the structure above. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reporduce the recostruction results.
    
+- You can also download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing)] (27 GB). 
+
  
 ### Reproduce the Reconstruction Results using the Pre-trained Model
 - Download the pretrained model [here](https://drive.google.com/file/d/1p7pvbfM0Vi0HK9MdQHoW3LNCkpS_Jyfi/view?usp=sharing) (about 250 MB).
@@ -75,10 +77,10 @@ cd reconstruction/test
 # test on kiwi dataset 
 python3 test.py --data_root ../../datasets/dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
 ```
-- Here, the pretrained model produces the inference on the RGB+NIR test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
+- Here, the pretrained model produces the inference on the test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - The following performance metrics are printed: MRAE, RMSE, SAM, SID, SSIM, and PSNR (These are the ones reported in Table 1 in the paper). 
-- Similarly, repeat the process for other fruits (e.g. blueberries, apple).
+- Similarly, you can repeat the process for other fruits (e.g. blueberries, apple).
 ```bash
 # test on apple dataset 
 python3 test.py --data_root ../../datasets/dataset_apple/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_apple/  --gpu_id 0
@@ -97,7 +99,7 @@ python3 test.py --data_root ../../datasets/dataset_tomato/reconstruction/  --met
 
 ### Training the reconstruction model from scratch
 - This may take several hours, depending on the GPU.
-- TO train the model on three fruits (apples, kiwis, and blueberries):
+- To train the model on three fruits (apples, kiwis, and blueberries):
 ```bash
 cd reconstruction/train
 python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_lr 4e-4 --outf ./exp/mst_apple_kiwi_blue/ --data_root1 ../../datasets/dataset_apple/reconstruction/ --data_root2 ../../datasets/dataset_kiwi/reconstruction/ --data_root3 ../../datasets/dataset_blueberries/reconstruction/ --patch_size 64 --stride 64 --gpu_id 0
