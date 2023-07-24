@@ -54,19 +54,19 @@ The datasets and pretrained_models folders are initially empty.
 
 - To evalaute the reconstruction mode, you will need to download one or more of the following five datasets:
 
-      - [[kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing)] (2.6 GB)
+      - [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) (2.6 GB)
 
-      - [[blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing)] (1.9 GB)
+      - [blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing) (1.9 GB)
 
-      - [[apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing)]) (19 GB)
+      - [apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing) (19 GB)
 
-      - [[tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing)] (1.7 GB)
+      - [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) (1.7 GB)
 
-      - [[strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing)] (2.0 GB)
+      - [strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing) (2.0 GB)
 
 - Unzip the downloaded dataset(s) and move it (them) to the correct folder(s) according to the structure above. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reporduce the recostruction results.
    
-- You can also download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing)] (27 GB). 
+- You can also download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing) (27 GB). 
 
  
 ### Reproduce the Reconstruction Results using the Pre-trained Model
