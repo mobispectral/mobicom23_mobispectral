@@ -171,4 +171,4 @@ python3 evaluate.py --data_root ../datasets/dataset_apple/classification/ --frui
 python3 classify.py --data_root ../datasets/dataset_apple/classification/ --fruit apple
 ```
 
-## Mobile Application
+## Mobile Application [[link](https://github.com/mobispectral/MobiSpectral-Android)]
