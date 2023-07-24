@@ -15,7 +15,7 @@ There are three main components of MobiSpectral to evaluate:
 ### Prerequisites
 - Workstation running Linux
 - NVIDIA GPU + CUDA CuDNN
-- Python 3.8 Anaconda (or earlier version) 
+- Python Anaconda (Python version 3.8 or earlier) 
 
 ### Install the code 
 - Clone the following repo, create Anaconda environment, and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
