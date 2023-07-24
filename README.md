@@ -39,7 +39,7 @@ The structure of the directory should look like:
 The datasets and pretrained_models folders are initially empty. 
 
 ### Download datasets
-- The Hyperspectral Images dataset used in the paper has images of five sub datasets for different fruits: apple, kiwi,tomato, blueberries, and strawberries. Each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
+- The Hyperspectral Images dataset used in the paper has images of five sub datasets for different fruits: apple, kiwi, tomato, blueberries, and strawberries. Each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
 - The directory structure of the datasets looks like: 
   ```bash
    |--datasets
@@ -51,17 +51,11 @@ The datasets and pretrained_models folders are initially empty.
           |--...
       ... 
   ```
-
 - To evalaute the reconstruction mode, you will need to download one or more of the following five datasets:
-
       - [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) (2.6 GB)
-
       - [blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing) (1.9 GB)
-
       - [apple](https://drive.google.com/file/d/1WtogFi1ahG5ejzpcp0GcUs64MEuQDJjT/view?usp=sharing) (19 GB)
-
       - [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) (1.7 GB)
-
       - [strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing) (2.0 GB)
 
 - Unzip the downloaded dataset(s) and move it (them) to the correct folder(s) according to the structure above. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reporduce the recostruction results.
@@ -69,7 +63,7 @@ The datasets and pretrained_models folders are initially empty.
 - You can also download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing) (27 GB). 
 
  
-### Reproduce the Reconstruction Results using the Pre-trained Model
+### Reproduce the reconstruction results using the pre-trained model
 - Download the pretrained model [here](https://drive.google.com/file/d/1p7pvbfM0Vi0HK9MdQHoW3LNCkpS_Jyfi/view?usp=sharing) (about 250 MB).
 - Move the downloaded folder to the path ```mobicom23_mobispectral/pretrained_models/```
 ```bash
