@@ -18,7 +18,7 @@ There are three main components of MobiSpectral to evaluate:
 - Python 3.8 or earlier ones
 
 ### Install the code 
-- Clone this repo & install dependencies:
+- Clone this repo & create Anaconda environment and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
 ```bash
 git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
@@ -52,7 +52,7 @@ The datasets and pretrained_models folders are initially empty.
       ... 
   ```
 
-* Download [datasets for ALL fruits here] (27 GB). And unzipp to the correct folder and sub-folders (as above). Please note that additional 20 GB space will be needed to reproduce the results of all fruits. 
+* Download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing)] (27 GB). And unzipp to the correct folder and sub-folders (as above). Please note that additional 20 GB space will be needed to reproduce the results of all fruits. 
 
 * Or, you can download the dataset for individual fruits:
   
