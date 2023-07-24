@@ -6,7 +6,7 @@ This repository describes the detailed steps to reproduce the research results p
 There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
 - Identification of Organic Fruits 
-- Mobile Application
+- [Mobile Application](https://github.com/mobispectral/MobiSpectral-Android)
 
 ## Hyperspectral Reconstruction
 - MobiSpectral has a hyperspectral reconstruction model that was trained on images captured by a hyperspectral camera.
