@@ -13,9 +13,9 @@ There are three main components of MobiSpectral to evaluate:
 - You can [reproduce our results using the pre-trained model](### Reproduce the Reconstruction Results using the Pre-trained Model). Alternatively, you can start by [training the model from scratch], but this may take several hours and require downloading multiple extra gigabytes of training data.
   
 ### Prerequisites
-- Workstation running Linux or MacOS
+- Workstation running Linux
 - NVIDIA GPU + CUDA CuDNN
-- Python <= 3.8 (Anaconda)
+- Python 3.8 or earlier ones
 
 ### Install the code 
 - Clone this repo & install dependencies:
