@@ -39,14 +39,14 @@ The structure of the directory should look like:
 The datasets and pretrained_models folders are initially empty. 
 
 ### Download datasets
-- The Hyperspectral Images dataset used in the paper has images of five sub datasets for different fruits: apple, kiwi, tomato, blueberries, and strawberries. Each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
+- There are five datasets for different fruits: apple, kiwi, tomato, blueberries, and strawberries. Each is named as ``dataset_{fruit}``, e.g., ``dataset_kiwi``. 
 - The directory structure of the datasets looks like: 
   ```bash
    |--datasets
       |--dataset_kiwi
           |--reconstruction (Ground Truth Hyperspectral data, paired to RGB+NIR)
           |--mobile_data (Paired RGB+NIR mobile images, two classes organic/non-organic)
-          |--classification (Reconstructed Hyperspectral from mobile images)
+          |--classification (Reconstructed hyperspectral images from mobile images)
        |--dataset_apple
           |--...
       ... 
@@ -65,7 +65,7 @@ The datasets and pretrained_models folders are initially empty.
 
 - Unzip the downloaded dataset(s) and move it (them) to the correct folder(s) according to the structure above. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reporduce the recostruction results.
    
-- You can also download [datasets for ALL fruits [here](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing) (27 GB). 
+- You can also download [all datasets together](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing) (27 GB). 
 
  
 ### Reproduce the reconstruction results using the pre-trained model
@@ -76,7 +76,7 @@ cd reconstruction/test
 # test on kiwi dataset 
 python3 test.py --data_root ../../datasets/dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
 ```
-- Here, the pretrained model produces the inference on the test dataset and computes performance metrics to compare against the ground truth hyperspectral data.
+- Here, the pretrained model produces the inference on the test dataset and computes multiple performance metrics to compare against the ground truth hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - The following performance metrics are printed: MRAE, RMSE, SAM, SID, SSIM, and PSNR (These are the ones reported in Table 1 in the paper). 
 - Similarly, you can repeat the process for other fruits (e.g. blueberries, apple).
@@ -105,7 +105,7 @@ python3 train.py --method mst_plus_plus --batch_size 20 --end_epoch 100 --init_l
 ```
 
 ## Identification of Organic Fruits
-- We use the trained reconstruction model to reconstruct hyperspectral bands from RGB & NIR images captured by a mobile phone (Google Pixel 4).
+- We use the trained reconstruction model to reconstruct hyperspectral bands from RGB & NIR images captured by a mobile phone (Google Pixel 4 XL).
 - Then, we feed the reconstructed hyperspectral bands to a classifier to distinguish organic fruits from non-organic ones. 
 
 ### Hyperspectral reconstruction of the mobile image dataset 
