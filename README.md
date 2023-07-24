@@ -10,7 +10,7 @@ There are three main components of MobiSpectral to evaluate:
 
 ## Hyperspectral Reconstruction
 - MobiSpectral has a hyperspectral reconstruction model that was trained on images captured by a hyperspectral camera.
-- You can [reproduce our results using the pre-trained model](### Reproduce the Reconstruction Results using the Pre-trained Model). Alternatively, you can start by [training the model from scratch], but this may take several hours and require downloading multiple extra gigabytes of training data.
+- You can reproduce our results using the pre-trained model. Alternatively, you can start by training the model from scratch, but this may take several hours.
   
 ### Prerequisites
 - Workstation running Linux
