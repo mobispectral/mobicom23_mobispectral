@@ -28,8 +28,10 @@ pip install -r requirements.txt
 The above instructions should work for most environments. However, for some CUDA drivers, you may need to do the following more specific instructions instead: 
 
 1. Download miniconda from https://docs.conda.io/en/latest/miniconda.html  (Choose Linux Python 3.8)
-2. Install miniconda: 
-     - ``bash Miniconda3-py38_23.5.2-0-Linux-x86_64.sh``
+2. Install miniconda:
+```bash
+     bash Miniconda3-py38_23.5.2-0-Linux-x86_64.sh
+     ```
 
 3. Clone repo & create anaconda env
   ```bash
