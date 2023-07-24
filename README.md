@@ -18,12 +18,28 @@ There are three main components of MobiSpectral to evaluate:
 - Python 3.8 Anaconda (or earlier version) 
 
 ### Install the code 
-- Clone the following repo. Create Anaconda environment and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
+- Clone the following repo, create Anaconda environment, and install [Pytorch](https://pytorch.org/get-started/previous-versions/) & other dependencies:
 ```bash
 git clone https://github.com/mobispectral/mobicom23_mobispectral.git
 cd mobicom23_mobispectral
 pip install -r requirements.txt
 ```
+
+The above instructions should work for most environments. However, for some CUDA drivers, you may need to do the following more specific instructions instead: 
+
+1. Download miniconda from https://docs.conda.io/en/latest/miniconda.html  (Choose Linux Python 3.8)
+2. Install miniconda: 
+     - ``bash Miniconda3-py38_23.5.2-0-Linux-x86_64.sh``
+
+3. Clone repo & create anaconda env
+  ``- git clone https://github.com/mobispectral/mobicom23_mobispectral.git
+  - cd mobicom23_mobispectral
+  - conda create --name MobiSpec python=3.8
+  - conda activate MobiSpec``
+
+3) Install pytorch & dependencies
+- pip install torch==1.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html
+- pip install -r requirements.txt
 
 The structure of the directory should look like:
 
@@ -70,13 +86,14 @@ The datasets and pretrained_models folders are initially empty.
  
 ### Reproduce the reconstruction results using the pre-trained model
 - Download the pretrained model [here](https://drive.google.com/file/d/1p7pvbfM0Vi0HK9MdQHoW3LNCkpS_Jyfi/view?usp=sharing) (about 250 MB).
-- Move the .zip file to the ```mobicom23_mobispectral/``` folder and unzip it there. 
+- Move the .zip file to the ```mobicom23_mobispectral/``` folder and unzip it there.
+- Test the reconstruction model on the kiwi dataset as follows: 
 ```bash
 cd reconstruction/test
 # test on kiwi dataset 
 python3 test.py --data_root ../../datasets/dataset_kiwi/reconstruction/  --method mst_plus_plus --pretrained_model_path ../../pretrained_models/mst_apple_kiwi_blue_68ch.pth --outf ./exp/hs_inference_kiwi/  --gpu_id 0
 ```
-- Here, the pretrained model produces the inference on the test dataset and computes multiple performance metrics to compare against the ground truth hyperspectral data.
+- Here, the pretrained model produces the inference on the test partition of the kiwi dataset and computes multiple performance metrics to compare against the ground truth hyperspectral data.
 - Inferenced images (```.mat``` format) are saved at path ```./exp/hs_inference_kiwi/```.
 - The following performance metrics are printed: MRAE, RMSE, SAM, SID, SSIM, and PSNR (These are the ones reported in Table 1 in the paper). 
 - Similarly, you can repeat the process for other fruits (e.g. blueberries, apple).
