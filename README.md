@@ -80,7 +80,7 @@ The datasets and pretrained_models folders are initially empty.
   
     - [blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing) (1.9 GB)
 
-    - [apple](https://drive.google.com/file/d/1g0QRJWUC-yFhE_om4PbNqXIW6Ccp2XAl/view?usp=sharing) (19.0 GB)
+    - [apple](https://drive.google.com/file/d/1fsD5rFo88RI6Rh3IiDMPJOTo-gYoGsY-/view?usp=sharing) (19.0 GB)
     
     - [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) (1.7 GB)
   
