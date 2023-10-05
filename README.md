@@ -1,7 +1,6 @@
 # MobiSpectral: Hyperspectral Imaging on Mobile Devices
-
 This repository describes the detailed steps to reproduce the research results presented in the paper titled: 
-``MobiSpectral: Hyperspectral Imaging on Mobile Devices``.  
+[``MobiSpectral: Hyperspectral Imaging on Mobile Devices``](https://dl.acm.org/doi/10.1145/3570361.3613296) published in ACM MobiCom'23. 
 
 There are three main components of MobiSpectral to evaluate: 
 - Hyperspectral Reconstruction
@@ -172,3 +171,24 @@ python3 classify.py --data_root ../datasets/dataset_apple/classification/ --frui
 ```
 
 ## Mobile Application [[link](https://github.com/mobispectral/MobiSpectral-Android)]
+
+## Citation
+If you use our code or dataset for your research, please cite our paper.
+```
+@inproceedings{10.1145/3570361.3613296,
+author = {Sharma, Neha and Waseem, Muhammad Shahzaib and Mirzaei, Shahrzad and Hefeeda, Mohamed},
+title = {MobiSpectral: Hyperspectral Imaging on Mobile Devices},
+year = {2023},
+isbn = {9781450399906},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3570361.3613296},
+doi = {10.1145/3570361.3613296},
+booktitle = {Proceedings of the 29th Annual International Conference on Mobile Computing and Networking},
+articleno = {82},
+numpages = {15},
+keywords = {mobile applications, food fraud, hyperspectral imaging},
+location = {Madrid, Spain},
+series = {ACM MobiCom '23}
+}
+```
