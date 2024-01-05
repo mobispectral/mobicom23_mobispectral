@@ -87,7 +87,7 @@ The datasets and pretrained_models folders are initially empty.
 
 - Unzip the downloaded dataset(s) and move it (them) to the datasets folder. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reproduce the reconstruction results.
    
-- You can also download [all datasets together](https://drive.google.com/file/d/1_eqR_6f7-9-aIvSTpYazc1dadU7tTVCT/view?usp=sharing) (27 GB). 
+- You can also download [all datasets together](https://doi.org/10.20383/103.0811) (27 GB). 
 
  
 ### Reproduce the reconstruction results using the pre-trained model
