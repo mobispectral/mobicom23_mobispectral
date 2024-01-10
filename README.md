@@ -75,15 +75,15 @@ The datasets and pretrained_models folders are initially empty.
   ```
 - To evaluate the reconstruction mode, you will need to download one or more of the following five datasets:
 
-     - [kiwi](https://drive.google.com/file/d/16B9Jnwgo9Xev4db3ROqvL8_64vAr3l-H/view?usp=sharing) (2.6 GB)
+     - [kiwi](https://drive.google.com/file/d/1PHsMs3TtQYg-VmhrJKfy-jzplUgHNDWx/view) (2.6 GB)
   
-    - [blueberries](https://drive.google.com/file/d/1jYHs0Q9rnsx58IaHoR0wSvS4Ep0l7IUO/view?usp=sharing) (1.9 GB)
+    - [blueberries](https://drive.google.com/file/d/1PF-yzTW3ao6ZACLPlOeO_Z-qiUkBcxz3/view) (1.9 GB)
 
-    - [apple](https://drive.google.com/file/d/1fsD5rFo88RI6Rh3IiDMPJOTo-gYoGsY-/view?usp=sharing) (19.0 GB)
+    - [apple](https://drive.google.com/file/d/1PFiOQtyRwSCSV6gIpfZ9beoyWQDgsZN1/view) (19.0 GB)
     
-    - [tomato](https://drive.google.com/file/d/1WbQpNG6GFtvjijb9g27n8QE_yDip8tGH/view?usp=sharing) (1.7 GB)
+    - [tomato](https://drive.google.com/file/d/1PELLiBpeNmgrQHDeuWdWWvCMfBt4dk9r/view) (1.7 GB)
   
-    - [strawberries](https://drive.google.com/file/d/1taaiWVIwjy8PtiuxdxNvr2CTWkuhv_Q4/view?usp=sharing) (2.0 GB)
+    - [strawberries](https://drive.google.com/file/d/1PI5505giSb4LLBTVCMvT318wWONPkJEZ/view) (2.0 GB)
 
 - Unzip the downloaded dataset(s) and move it (them) to the datasets folder. Please note that additional storage (similar in size to the downloaded dataset) will be needed to reproduce the reconstruction results.
    
@@ -91,7 +91,7 @@ The datasets and pretrained_models folders are initially empty.
 
  
 ### Reproduce the reconstruction results using the pre-trained model
-- Download the pretrained model [here](https://drive.google.com/file/d/1p7pvbfM0Vi0HK9MdQHoW3LNCkpS_Jyfi/view?usp=sharing) (about 250 MB).
+- Download the pretrained model [here](https://drive.google.com/file/d/1P7LcvEvrV-8Mr-QzyuqN9v5f5jzyb_a-/view) (about 250 MB).
 - Move the .zip file to the ```mobicom23_mobispectral/``` folder and unzip it there.
 - Test the reconstruction model on the kiwi dataset as follows: 
 ```bash
